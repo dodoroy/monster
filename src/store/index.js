@@ -11,10 +11,10 @@ export default new Vuex.Store({
     menuList: []
   },
   mutations: {
-    setCategoryList(state, categoryList) {
+    setCategoryList (state, categoryList) {
       state.categoryList = categoryList
     },
-    setMenuList(state, menuList) {
+    setMenuList (state, menuList) {
       state.menuList = menuList
     }
   },

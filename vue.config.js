@@ -5,3 +5,9 @@ module.exports = {
     }
   }
 }
+
+
+
+  // "gitHooks": {
+  //     "pre-commit": "lint-staged"
+  // },
