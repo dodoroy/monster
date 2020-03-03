@@ -1,17 +1,17 @@
 <template>
   <div class="wrapper">
-<div class="g1"></div>
-<div class="g2"></div>
-<div class="g3"></div>
-<div class="g4"></div>
-<div class="g5"></div>
-<div class="g6"></div>
+    <div class="g1" />
+    <div class="g2" />
+    <div class="g3" />
+    <div class="g4" />
+    <div class="g5" />
+    <div class="g6" />
   </div>
 </template>
 <script>
 export default {
 
-};
+}
 </script>
 <style lang="scss" scoped>
 .wrapper {

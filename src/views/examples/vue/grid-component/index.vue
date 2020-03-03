@@ -7,17 +7,26 @@
 
     <form>
       <label for="search">filter text: </label>
-      <input type="text" id="search" v-model="searchQuery" />
+      <input
+        id="search"
+        v-model="searchQuery"
+        type="text"
+      >
     </form>
-    <sortable-table :columns="gridColumns" :table-data="gridData" :filter-key="searchQuery"></sortable-table>
+    <sortable-table
+      :columns="gridColumns"
+      :table-data="gridData"
+      :filter-key="searchQuery"
+    />
   </div>
 </template>
 
 <script>
-import SortableTable from './sortable-table';
+import SortableTable from './sortable-table'
 
 export default {
-  data() {
+  components: { SortableTable },
+  data () {
     return {
       searchQuery: '',
       gridColumns: ['name', 'power'],
@@ -27,10 +36,9 @@ export default {
         { name: 'Jackie Chan', power: 7000 },
         { name: 'Jet Li', power: 8000 }
       ]
-    };
-  },
-  components: { SortableTable }
-};
+    }
+  }
+}
 </script>
 <style scoped>
 input {

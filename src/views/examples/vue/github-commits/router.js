@@ -1,4 +1,4 @@
 export default {
   name: 'Github Commits',
-  sort: 1
+  sort: 2
 }

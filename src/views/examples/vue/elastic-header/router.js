@@ -1,4 +1,4 @@
 export default {
   name: 'Elastic Header',
-  sort: 6
+  sort: 7
 }

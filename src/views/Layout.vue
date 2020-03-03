@@ -1,31 +1,43 @@
 <template>
   <el-container>
-    <progress-bar progress="20" />
-    <el-aside :width="isSidebarOpened ? '64px' : '240px'" :class="isSidebarOpened ? 'fold' : 'unfold'">
+    <progress-bar :progress="20" />
+    <el-aside
+      :width="isSidebarOpened ? '64px' : '240px'"
+      :class="isSidebarOpened ? 'fold' : 'unfold'"
+    >
       <div class="logo-wrapper">
-        <span class="logo"></span>
-        <!-- <span class="logo-text">Monster</span> -->
+        <router-link to="/">
+          <span class="logo" />
+          <!-- <span class="logo-text">Monster</span> -->
+        </router-link>
       </div>
       <el-menu
-        default-active="2"
-        class="el-menu-vertical-demo"
+        class="el-menu-vertical"
         :router="true"
-        :default-active="$route.path"
+        :default-active="path"
+        :default-openeds="[curCateName]"
+        :unique-opened="true"
         :collapse="isSidebarOpened"
         :collapse-transition="false"
-        @open="handleOpen"
-        @close="handleClose"
+        active-text-color="#f66"
       >
         <!-- background-color="#563d7c"
-        text-color="#fff"
-        active-text-color="#ffd04b" -->
-        <el-submenu v-for="category in menuList" :index="category.path" :key="category.name">
+        text-color="#fff" -->
+        <el-submenu
+          v-for="category in menuList"
+          :key="category.name"
+          :index="category.name"
+        >
           <template slot="title">
-            <i :class="category.icon"></i>
+            <i :class="category.icon" />
             <span>{{ category.name }}</span>
           </template>
 
-          <el-menu-item v-for="item in category.children" :index="item.path" :key="item.name">
+          <el-menu-item
+            v-for="item in category.children"
+            :key="item.name"
+            :index="item.path"
+          >
             {{ item.name }}
           </el-menu-item>
         </el-submenu>
@@ -34,22 +46,38 @@
 
     <el-container>
       <el-header>
-        <span class="fold-wrapper" @click="toggleFoldHandler">
-          <i :class="isSidebarOpened ? 'el-icon-s-unfold' : 'el-icon-s-fold'"></i>
+        <span
+          class="fold-wrapper"
+          @click="toggleFoldHandler"
+        >
+          <i :class="isSidebarOpened ? 'el-icon-s-unfold' : 'el-icon-s-fold'" />
         </span>
 
         <el-breadcrumb separator-class="el-icon-arrow-right">
-          <el-breadcrumb-item :to="{ path: '/' }">Home</el-breadcrumb-item>
-          <el-breadcrumb-item v-for="item in breadCrumb" :key="item" v-if="item">
+          <el-breadcrumb-item :to="{ path: '/' }">
+            Home
+          </el-breadcrumb-item>
+          <el-breadcrumb-item
+            v-for="item in breadCrumb"
+            :key="item"
+          >
+            <!--v-if="item"-->
             {{ item }}
           </el-breadcrumb-item>
         </el-breadcrumb>
 
         <div class="avatar-wrapper">
-          <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" />
+          <router-link to="/">
+            <img src="~@/assets/logo.png">
+            <router-link to="/examples/vue/svg-shape-transition" />
+          </router-link>
         </div>
         <div class="category-wrapper">
-          <router-link :to="`/examples/${item}/`" v-for="item of categoryList" :key="item">
+          <router-link
+            v-for="item of categoryList"
+            :key="item"
+            :to="`/examples/${item}/`"
+          >
             {{ item }}
           </router-link>
         </div>
@@ -57,7 +85,7 @@
 
       <el-main>
         <el-card class="example-wrapper">
-          <router-view></router-view>
+          <router-view />
         </el-card>
       </el-main>
     </el-container>
@@ -66,14 +94,14 @@
   </el-container>
 </template>
 <script>
-import ProgressBar from '@/components/progress-bar';
-import { mapState } from 'vuex';
+import ProgressBar from '@/components/progress-bar'
+import { mapState } from 'vuex'
 
-console.log(123, ProgressBar);
+// console.log(123, ProgressBar);
 export default {
   components: { ProgressBar },
-  data() {
-    return {};
+  data () {
+    return {}
   },
   computed: {
     ...mapState({
@@ -82,31 +110,34 @@ export default {
       isSidebarOpened: (state) => state.app.sidebar.opened,
       path: (state) => state.route.path
     }),
-    breadCrumb() {
+    breadCrumb () {
       // console.log(this.route.split('/'));
-      return this.path.split('/');
+      return this.path.split('/').filter((i) => i)
+    },
+    curCateName () {
+      return this.breadCrumb[1]
+    },
+    curExamName () {
+      return this.breadCrumb[2]
     }
   },
   watch: {
-    route(val, oldVal) {
+    route (val, oldVal) {
       if (val !== oldVal) {
-        console.log('rr', route);
+        console.log('rr', this.path)
       }
     }
   },
+  mounted () {
+    console.log(11, this.breadCrumb, this.curCateName, this.curExamName)
+  },
 
   methods: {
-    toggleFoldHandler() {
-      this.$store.commit('app/TOGGLE_SIDEBAR');
-    },
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
+    toggleFoldHandler () {
+      this.$store.commit('app/TOGGLE_SIDEBAR')
     }
   }
-};
+}
 </script>
 <style lang="scss" scoped>
 .el-container {
@@ -120,12 +151,13 @@ export default {
 
   .logo-wrapper {
     height: 60px;
-    margin: 40px 0 40px 30px;
-
+    margin: 20px 0 0px 80px;
+    transition: margin 1s ease-out;
     .logo {
       float: left;
       width: 60px;
       height: 60px;
+      border-radius: 50%;
       background: url('~@/assets/logo.png') no-repeat;
       background-size: contain;
     }
@@ -150,6 +182,19 @@ export default {
 }
 .el-menu {
   border-right: 0;
+  .el-submenu {
+    &.is-active {
+      color: #f66;
+    }
+    .el-submenu__title {
+      font-size: 16px;
+    }
+    .el-menu-item {
+      height: 32px;
+      line-height: 32px;
+      color: #4f5959;
+    }
+  }
 }
 .el-header {
   background: #563d7c;
@@ -191,17 +236,70 @@ export default {
   .avatar-wrapper {
     float: right;
     margin-top: 10px;
+    img {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+    }
   }
 }
+
 .example-wrapper {
   // background: #fff;
+  color: #273849;
   min-height: 100%;
+  padding-left: 24px;
 
   /deep/ blockquote {
+    font-weight: 500;
+    color: #4f5959;
     margin-left: 2px;
     padding-left: 16px;
     border-left: 4px solid #563d7c;
     margin-bottom: 40px;
+    line-height: 1.4;
+  }
+  /deep/ i {
+    color: #f66;
+  }
+
+  /deep/ h1 {
+    font-size: 1.4rem;
+    font-weight: 500;
+  }
+  /deep/ h2 {
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+
+  /deep/ input {
+    border: 1px solid #563d7c;
+  }
+  /deep/ button {
+    border: 1px solid #563d7c;
+  }
+}
+@media screen and (max-width: 670px) {
+  .el-header {
+    .el-breadcrumb {
+      // font-size: 12px;
+      margin-top: -30px;
+      margin-left: 38px;
+      .el-breadcrumb__separator {
+        margin: 0;
+      }
+    }
+    .category-wrapper,
+    .avatar-wrapper {
+      display: none;
+    }
+  }
+
+  .el-main {
+    padding: 4px;
+  }
+  .example-wrapper {
+    padding-left: 0px;
   }
 }
 </style>

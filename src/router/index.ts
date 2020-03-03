@@ -2,13 +2,14 @@ import Vue from 'vue';
 import Router, { RouteConfig } from 'vue-router';
 import store from '@/store';
 
-import Home from '@/views/Home.vue';
-import Layout from '@/views/Layout.vue';
+import Home from '@/views/Home';
+// import Login from '@/views/Login';
+import Layout from '@/views/Layout';
 import NotFound from '@/views/NotFound';
 Vue.use(Router);
 
 // 路由配置接口，继承RouteConfig
-export declare interface IRouterConfig extends RouteConfig {
+export declare  interface IRouterConfig extends RouteConfig {
   name: string; // 路由显示文本
   icon?: string; // 路由icon（iconfont的className）
   sort?: number; // 路由排序
@@ -32,13 +33,13 @@ class RouterBuilder {
   });
 
   // 全部 examples 的路由列表
-  private routerList = [];
+  private routerList:any[] = [];
 
   // 左侧菜单栏数据列表
-  private menuList = [];
+  private menuList:any[] = [];
 
   // examples 的种类
-  private categoryList = [];
+  private categoryList:any[] = [];
 
   constructor() {
     // 获取全部 example 文件
@@ -65,7 +66,6 @@ class RouterBuilder {
         name: routerFile.name,
         component: () => import(`@/views/examples/${category}/${examName}`)
       });
-      // console.log(category, examName);
 
       const categoryMenu = this.menuList.filter((menu) => menu.name === category);
 
@@ -93,7 +93,7 @@ class RouterBuilder {
         this.menuList.push({
           name: category,
           icon,
-          path: `/examples/${category}/${examName}`,
+          // path: `/examples/${category}/${examName}`,
           children: []
         });
       }
@@ -106,13 +106,21 @@ class RouterBuilder {
           sort: routerFile.sort
         });
     });
-    this.menuList.forEach((cate) => {
+
+    // 重新排序
+    let menuListCateSort:any[] = []
+    menuListCateSort[0]=this.menuList[2]
+    menuListCateSort[1]=this.menuList[0]
+    menuListCateSort[2]=this.menuList[1]
+    this.menuList=menuListCateSort;
+
+    this.menuList.forEach((cate: any) => {
       // 每个分类下的 examples 按照 router 里配置的 sort 排序
       cate.children = cate.children.sort((a: any, b: any) => {
         return a.sort - b.sort;
       });
     });
-    // console.log('menulist', this.menuList,);
+
     store.commit('setMenuList', this.menuList);
     store.commit('setCategoryList', this.categoryList);
 
@@ -123,6 +131,11 @@ class RouterBuilder {
         name: 'home',
         component: Home
       },
+      // {
+      //   path: '/login',
+      //   name: 'login',
+      //   component: Login
+      // },
       {
         path: '/examples',
         name: 'examples',

@@ -1,27 +1,33 @@
 <template>
   <div>
-    <input type="file" @change="processFile" multiple>
-    <div class="output">{{output}}</div>
+    <input
+      type="file"
+      multiple
+      @change="processFile"
+    >
+    <div class="output">
+      {{ output }}
+    </div>
   </div>
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
-      output: '',
-    };
+      output: ''
+    }
   },
   methods: {
-    processFile(e) {
-      const file = e.target.files[0];
-      const reader = new FileReader();
-      reader.readAsText(file);
+    processFile (e) {
+      const file = e.target.files[0]
+      const reader = new FileReader()
+      reader.readAsText(file)
       reader.onload = (event) => {
-        this.output = event.target.result;
-      };
-    },
-  },
-};
+        this.output = event.target.result
+      }
+    }
+  }
+}
 </script>
 <style lang="scss">
   .output {

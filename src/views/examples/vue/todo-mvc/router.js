@@ -1,4 +1,4 @@
 export default {
   name: 'TodoMVC',
-  sort: 9
+  sort: 11
 }

@@ -1,179 +1,191 @@
 <template>
   <div>
+    <h1>this.canvas B&#233;zier Curve Example</h1>
 
-<h1>Canvas B&#233;zier Curve Example</h1>
+    <this.canvas
+      id="this.canvas"
+      height="500"
+      width="500"
+      class="bezier"
+    />
+    <pre id="code">code</pre>
 
-<canvas id="canvas" height="500" width="500" class="bezier"></canvas>
-<pre id="code">code</pre>
-
-<p>This demonstration shows how b&#233;zier curves can be drawn on a canvas element. Drag the line ends or the control points to change the curve.</p>
-
+    <p>
+      This demonstration shows how b&#233;zier curves can be drawn on a this.canvas element. Drag the line ends or the
+      control points to change the curve.
+    </p>
   </div>
 </template>
 <script>
 export default {
-  mounted() {
-    let canvas; let ctx; let code; let point; let style; let drag = null; let
-      dPoint;
-
+  data () {
+    return {
+      canvas: null,
+      ctx: null
+    }
+  },
+  mounted () {
     // define initial points
-    function Init(quadratic) {
+    function Init (quadratic) {
       point = {
         p1: { x: 100, y: 250 },
-        p2: { x: 400, y: 250 },
-      };
+        p2: { x: 400, y: 250 }
+      }
 
       if (quadratic) {
-        point.cp1 = { x: 250, y: 100 };
+        point.cp1 = { x: 250, y: 100 }
       } else {
-        point.cp1 = { x: 150, y: 100 };
-        point.cp2 = { x: 350, y: 100 };
+        point.cp1 = { x: 150, y: 100 }
+        point.cp2 = { x: 350, y: 100 }
       }
 
       // default styles
       style = {
-        curve:	{ width: 6, color: '#333' },
-        cpline:	{ width: 1, color: '#C00' },
+        curve: { width: 6, color: '#333' },
+        cpline: { width: 1, color: '#C00' },
         point: {
-          radius: 10, width: 2, color: '#900', fill: 'rgba(200,200,200,0.5)', arc1: 0, arc2: 2 * Math.PI,
-        },
-      };
+          radius: 10,
+          width: 2,
+          color: '#900',
+          fill: 'rgba(200,200,200,0.5)',
+          arc1: 0,
+          arc2: 2 * Math.PI
+        }
+      }
 
       // line style defaults
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
+      this.ctx.lineCap = 'round'
+      this.ctx.lineJoin = 'round'
 
       // event handlers
-      canvas.onmousedown = DragStart;
-      canvas.onmousemove = Dragging;
-      canvas.onmouseup = canvas.onmouseout = DragEnd;
+      this.canvas.onmousedown = DragStart
+      this.canvas.onmousemove = Dragging
+      this.canvas.onmouseup = this.canvas.onmouseout = DragEnd
 
-      DrawCanvas();
+      Drawcanvas()
     }
 
-
-    // draw canvas
-    function DrawCanvas() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // draw this.canvas
+    function Drawcanvas () {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
 
       // control lines
-      ctx.lineWidth = style.cpline.width;
-      ctx.strokeStyle = style.cpline.color;
-      ctx.beginPath();
-      ctx.moveTo(point.p1.x, point.p1.y);
-      ctx.lineTo(point.cp1.x, point.cp1.y);
+      this.ctx.lineWidth = style.cpline.width
+      this.ctx.strokeStyle = style.cpline.color
+      this.ctx.beginPath()
+      this.ctx.moveTo(point.p1.x, point.p1.y)
+      this.ctx.lineTo(point.cp1.x, point.cp1.y)
       if (point.cp2) {
-        ctx.moveTo(point.p2.x, point.p2.y);
-        ctx.lineTo(point.cp2.x, point.cp2.y);
+        this.ctx.moveTo(point.p2.x, point.p2.y)
+        this.ctx.lineTo(point.cp2.x, point.cp2.y)
       } else {
-        ctx.lineTo(point.p2.x, point.p2.y);
+        this.ctx.lineTo(point.p2.x, point.p2.y)
       }
-      ctx.stroke();
+      this.ctx.stroke()
 
       // curve
-      ctx.lineWidth = style.curve.width;
-      ctx.strokeStyle = style.curve.color;
-      ctx.beginPath();
-      ctx.moveTo(point.p1.x, point.p1.y);
+      this.ctx.lineWidth = style.curve.width
+      this.ctx.strokeStyle = style.curve.color
+      this.ctx.beginPath()
+      this.ctx.moveTo(point.p1.x, point.p1.y)
       if (point.cp2) {
-        ctx.bezierCurveTo(point.cp1.x, point.cp1.y, point.cp2.x, point.cp2.y, point.p2.x, point.p2.y);
+        this.ctx.bezierCurveTo(point.cp1.x, point.cp1.y, point.cp2.x, point.cp2.y, point.p2.x, point.p2.y)
       } else {
-        ctx.quadraticCurveTo(point.cp1.x, point.cp1.y, point.p2.x, point.p2.y);
+        this.ctx.quadraticCurveTo(point.cp1.x, point.cp1.y, point.p2.x, point.p2.y)
       }
-      ctx.stroke();
+      this.ctx.stroke()
 
       // control points
       for (const p in point) {
-        ctx.lineWidth = style.point.width;
-        ctx.strokeStyle = style.point.color;
-        ctx.fillStyle = style.point.fill;
-        ctx.beginPath();
-        ctx.arc(point[p].x, point[p].y, style.point.radius, style.point.arc1, style.point.arc2, true);
-        ctx.fill();
-        ctx.stroke();
+        this.ctx.lineWidth = style.point.width
+        this.ctx.strokeStyle = style.point.color
+        this.ctx.fillStyle = style.point.fill
+        this.ctx.beginPath()
+        this.ctx.arc(point[p].x, point[p].y, style.point.radius, style.point.arc1, style.point.arc2, true)
+        this.ctx.fill()
+        this.ctx.stroke()
       }
 
-      ShowCode();
+      ShowCode()
     }
 
-
-    // show canvas code
-    function ShowCode() {
+    // show this.canvas code
+    function ShowCode () {
       if (code) {
-        code.firstChild.nodeValue =	`${'canvas = document.getElementById("canvas");\n'
-				+ 'ctx = canvas.getContext("2d")\n'
-				+ 'ctx.lineWidth = '}${style.curve.width
-				 };\nctx.strokeStyle = "${style.curve.color
-				 }";\nctx.beginPath();\n`
-				+ `ctx.moveTo(${point.p1.x}, ${point.p1.y});\n${
-				 point.cp2
-				    ? `ctx.bezierCurveTo(${point.cp1.x}, ${point.cp1.y}, ${point.cp2.x}, ${point.cp2.y}, ${point.p2.x}, ${point.p2.y});`
-				    : `ctx.quadraticCurveTo(${point.cp1.x}, ${point.cp1.y}, ${point.p2.x}, ${point.p2.y});`
-				 }\nctx.stroke();`;
+        code.firstChild.nodeValue =
+          `${'this.canvas = document.getElementById("this.canvas");\n' +
+            'this.ctx = this.canvas.getContext("2d")\n' +
+            'this.ctx.lineWidth = '}${style.curve.width};\nthis.ctx.strokeStyle = "${
+            style.curve.color
+          }";\nthis.ctx.beginPath();\n` +
+          `this.ctx.moveTo(${point.p1.x}, ${point.p1.y});\n${
+            point.cp2
+              ? `this.ctx.bezierCurveTo(${point.cp1.x}, ${point.cp1.y}, ${point.cp2.x}, ${point.cp2.y}, ${point.p2.x}, ${point.p2.y});`
+              : `this.ctx.quadraticCurveTo(${point.cp1.x}, ${point.cp1.y}, ${point.p2.x}, ${point.p2.y});`
+          }\nthis.ctx.stroke();`
       }
     }
-
 
     // start dragging
-    function DragStart(e) {
-      e = MousePos(e);
-      let dx;
-      let dy;
+    function DragStart (e) {
+      e = MousePos(e)
+      let dx
+      let dy
       for (const p in point) {
-        dx = point[p].x - e.x;
-        dy = point[p].y - e.y;
-        if ((dx * dx) + (dy * dy) < style.point.radius * style.point.radius) {
-          drag = p;
-          dPoint = e;
-          canvas.style.cursor = 'move';
-          return;
+        dx = point[p].x - e.x
+        dy = point[p].y - e.y
+        if (dx * dx + dy * dy < style.point.radius * style.point.radius) {
+          drag = p
+          dPoint = e
+          this.canvas.style.cursor = 'move'
+          return
         }
       }
     }
 
-
     // dragging
-    function Dragging(e) {
+    function Dragging (e) {
       if (drag) {
-        e = MousePos(e);
-        point[drag].x += e.x - dPoint.x;
-        point[drag].y += e.y - dPoint.y;
-        dPoint = e;
-        DrawCanvas();
+        e = MousePos(e)
+        point[drag].x += e.x - dPoint.x
+        point[drag].y += e.y - dPoint.y
+        dPoint = e
+        Drawcanvas()
       }
     }
 
-
     // end dragging
-    function DragEnd(e) {
-      drag = null;
-      canvas.style.cursor = 'default';
-      DrawCanvas();
+    function DragEnd (e) {
+      drag = null
+      this.canvas.style.cursor = 'default'
+      Drawcanvas()
     }
-
 
     // event parser
-    function MousePos(event) {
-      event = (event || window.event);
+    function MousePos (event) {
+      event = event || window.event
       return {
-        x: event.pageX - canvas.offsetLeft,
-        y: event.pageY - canvas.offsetTop,
-      };
+        x: event.pageX - this.canvas.offsetLeft,
+        y: event.pageY - this.canvas.offsetTop
+      }
     }
-
 
     // start
-    canvas = document.getElementById('canvas');
-    code = document.getElementById('code');
-    if (canvas.getContext) {
-      ctx = canvas.getContext('2d');
-      Init(canvas.className === 'quadratic');
+    this.canvas = document.getElementById('this.canvas')
+    const code = document.getElementById('code')
+    let point = {}
+    let style = {}
+    let drag = null
+    let dPoint = {}
+    if (this.canvas.getContext) {
+      this.ctx = this.canvas.getContext('2d')
+      Init(this.canvas.className === 'quadratic')
     }
-  },
-};
+  }
+}
 </script>
 <style lang="scss">
-canvas {
+this.canvas {
   border: 1px dotted red;
 }
 </style>

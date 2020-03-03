@@ -6,17 +6,21 @@
     </blockquote>
     <div>
       <pre>v-if="isFolder" v-show="isOpen"</pre>
-      v-if 和 v-show 可以同时使用
+      <pre>v-if 和 v-show 可以同时使用</pre>
     </div>
-
+    <p>(You can double click on an item to turn it into a folder.)</p>
     <ul>
-      <tree-item :item="treeData" @make-folder="makeFolder" @add-item="addItem"></tree-item>
+      <tree-item
+        :item="treeData"
+        @make-folder="makeFolder"
+        @add-item="addItem"
+      />
     </ul>
   </div>
 </template>
 
 <script>
-import TreeItem from './tree-item.vue';
+import TreeItem from './tree-item.vue'
 
 const treeData = {
   name: 'My Tree',
@@ -39,24 +43,22 @@ const treeData = {
       ]
     }
   ]
-};
+}
 export default {
-  data() {
+  components: { TreeItem },
+  data () {
     return {
       treeData
-    };
+    }
   },
-  components: { TreeItem },
   methods: {
-    makeFolder(item) {
-      this.$set(item, 'children', []);
-      this.addItem(item);
+    makeFolder (item) {
+      this.$set(item, 'children', [])
+      this.addItem(item)
     },
-    addItem(item) {
-      item.children.push({ name: 'new stuff' });
+    addItem (item) {
+      item.children.push({ name: 'new stuff' })
     }
   }
-};
+}
 </script>
-
-<style></style>

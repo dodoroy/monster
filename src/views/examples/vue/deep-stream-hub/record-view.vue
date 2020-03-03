@@ -3,38 +3,51 @@
     <h2>Realtime Datastore</h2>
     <div class="input-group half left">
       <label>Firstname</label>
-      <input type="text" v-model="firstname" @input="handleFirstNameUpdate()" />
+      <input
+        v-model="firstname"
+        type="text"
+        @input="handleFirstNameUpdate()"
+      >
     </div>
     <div class="input-group half">
       <label>Lastname</label>
-      <input type="text" v-model="lastname" @input="handleLastNameUpdate()" />
+      <input
+        v-model="lastname"
+        type="text"
+        @input="handleLastNameUpdate()"
+      >
     </div>
   </div>
 </template>
 <script>
 export default {
-  props: ['ds'],
-  data() {
+  props: {
+    ds: {
+      type: String,
+      default: ''
+    }
+  },
+  data () {
     return {
       firstname: '',
       lastname: ''
-    };
+    }
   },
-  created() {
-    this.record = this.ds.record.getRecord('test/johndoe');
+  created () {
+    this.record = this.ds.record.getRecord('test/johndoe')
 
-    this.record.subscribe(values => {
-      this.firstname = values.firstname;
-      this.lastname = values.lastname;
-    });
+    this.record.subscribe((values) => {
+      this.firstname = values.firstname
+      this.lastname = values.lastname
+    })
   },
   methods: {
-    handleFirstNameUpdate() {
-      this.record.set('firstname', this.firstname);
+    handleFirstNameUpdate () {
+      this.record.set('firstname', this.firstname)
     },
-    handleLastNameUpdate() {
-      this.record.set('lastname', this.lastname);
+    handleLastNameUpdate () {
+      this.record.set('lastname', this.lastname)
     }
   }
-};
+}
 </script>

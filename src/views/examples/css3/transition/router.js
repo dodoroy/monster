@@ -1,4 +1,4 @@
 export default {
   name: 'Transition',
-  sort: 1
+  sort: -99
 }

@@ -1,23 +1,37 @@
 <template>
-  <text :x="point.x" :y="point.y">{{ stat.label }}</text>
+  <text
+    :x="point.x"
+    :y="point.y"
+  >
+    {{ stat.label }}
+  </text>
 </template>
 
 <script>
 // math helper...
-import valueToPoint from './helper';
+import valueToPoint from './helper'
 
 export default {
   props: {
-    stat: Object,
-    index: Number,
-    total: Number
+    stat: {
+      type: Object,
+      default: () => {}
+    },
+    index: {
+      type: Number,
+      default: () => 0
+    },
+    total: {
+      type: Number,
+      default: () => 0
+    }
   },
   computed: {
-    point() {
-      return valueToPoint(+this.stat.value + 10, this.index, this.total);
+    point () {
+      return valueToPoint(+this.stat.value + 10, this.index, this.total)
     }
   }
-};
+}
 </script>
 
 <style></style>

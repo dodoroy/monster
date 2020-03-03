@@ -9,41 +9,65 @@
     </blockquote>
 
     <ul is="transition-group">
-      <li v-for="user in users" class="user" :key="user.name">
+      <li
+        v-for="user in users"
+        :key="user.name"
+        class="user"
+      >
         <span>{{ user.name }} - {{ user.email }}</span>
-        <button v-on:click="removeUser(user)">X</button>
+        <button @click="removeUser(user)">
+          X
+        </button>
       </li>
     </ul>
-    <form id="form" v-on:submit.prevent="addUser">
-      <input type="text" v-model="newUser.name" placeholder="Username" />
-      <input type="email" v-model="newUser.email" placeholder="email@email.com" />
-      <input type="submit" value="Add User" />
+    <form
+      id="form"
+      @submit.prevent="addUser"
+    >
+      <input
+        v-model="newUser.name"
+        type="text"
+        placeholder="Username"
+      >
+      <input
+        v-model="newUser.email"
+        type="email"
+        placeholder="email@email.com"
+      >
+      <input
+        type="submit"
+        value="Add User"
+      >
     </form>
     <ul class="errors">
-      <li v-show="!validation.name">Name cannot be empty.</li>
-      <li v-show="!validation.email">Please provide a valid email address.</li>
+      <li v-show="!validation.name">
+        Name cannot be empty.
+      </li>
+      <li v-show="!validation.email">
+        Please provide a valid email address.
+      </li>
     </ul>
   </div>
 </template>
 <script>
-import Vue from 'vue';
-import { firestorePlugin } from 'vuefire';
-import { db } from './firebase-db';
+import Vue from 'vue'
+import { firestorePlugin } from 'vuefire'
+import { db } from './firebase-db'
 
-Vue.use(firestorePlugin);
+Vue.use(firestorePlugin)
 
-var emailRE = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+var emailRE = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 export default {
   // initial data
-  data() {
+  data () {
     return {
       users: [],
       newUser: {
         name: '',
         email: ''
       }
-    };
+    }
   },
   // firebase binding
   // https://github.com/vuejs/vuefire
@@ -52,36 +76,36 @@ export default {
   },
   // computed property for form validation state
   computed: {
-    validation: function() {
+    validation: function () {
       return {
         name: !!this.newUser.name.trim(),
         email: emailRE.test(this.newUser.email)
-      };
+      }
     },
-    isValid: function() {
-      var validation = this.validation;
-      return Object.keys(validation).every(function(key) {
-        return validation[key];
-      });
+    isValid: function () {
+      var validation = this.validation
+      return Object.keys(validation).every(function (key) {
+        return validation[key]
+      })
     }
   },
   // methods
   methods: {
-    addUser: function() {
-      console.log('users', db.collection('users'));
+    addUser: function () {
+      console.log('users', db.collection('users'))
       if (this.isValid) {
-        db.collection('users').add(this.newUser);
-        this.newUser.name = '';
-        this.newUser.email = '';
+        db.collection('users').add(this.newUser)
+        this.newUser.name = ''
+        this.newUser.email = ''
       }
     },
-    removeUser: function(user) {
+    removeUser: function (user) {
       db.collection('users')
         .doc(user.id)
-        .delete();
+        .delete()
     }
   }
-};
+}
 </script>
 <style lang="scss" scoped>
 .user {

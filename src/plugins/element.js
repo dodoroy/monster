@@ -15,7 +15,8 @@ import {
   Avatar,
   Card,
   Breadcrumb,
-  BreadcrumbItem
+  BreadcrumbItem,
+  Button
 } from 'element-ui'
 
 Vue.use(Container)
@@ -33,6 +34,7 @@ Vue.use(Avatar)
 Vue.use(Card)
 Vue.use(Breadcrumb)
 Vue.use(BreadcrumbItem)
+Vue.use(Button)
 
 Vue.use(Loading.directive)
 

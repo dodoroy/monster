@@ -17,13 +17,12 @@
       border-bottom-left-radius: 40px 90px;
       border-bottom-right-radius: 20px 75px;
     </div>
-
   </div>
 </template>
 <script>
 export default {
 
-};
+}
 </script>
 <style lang="scss" scoped>
 .round {

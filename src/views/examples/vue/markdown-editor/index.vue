@@ -16,8 +16,7 @@ update() {
     ...
   },300)
 }
-</pre
-          >
+</pre>
           不会执行，需改成
           <pre>
 update() {
@@ -25,45 +24,53 @@ update() {
     ...
   },300)()
 }
-</pre
-          >
+</pre>
           或者
           <pre>
 update: _.debounce(function (e) {
   this.input = e.target.value;
 }, 300)
-</pre
-          >
+</pre>
         </li>
       </ul>
     </div>
 
-    <textarea name id cols="30" rows="10" :value="input" @input="update"></textarea>
-    <div v-html="compiledMarkdown" class="mark"></div>
+    <textarea
+      id
+      name
+      cols="30"
+      rows="10"
+      :value="input"
+      @input="update"
+    />
+    <div
+      class="mark"
+      v-html="compiledMarkdown"
+    />
   </div>
 </template>
 
 <script>
-import marked from 'marked';
-import _ from 'lodash';
+import marked from 'marked'
+import _ from 'lodash'
 
 export default {
-  data() {
+  data () {
     return {
       input: '# hello'
-    };
+    }
   },
   computed: {
-    compiledMarkdown() {
-      return marked(this.input);
+    compiledMarkdown () {
+      return marked(this.input)
     }
   },
   methods: {
-    update: _.debounce(function(e) {
-      this.input = e.target.value;
+    update: _.debounce(function (e) {
+      this.input = e.target.value
     }, 300)
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

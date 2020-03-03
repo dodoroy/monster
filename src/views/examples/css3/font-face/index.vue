@@ -1,34 +1,29 @@
 <template>
   <div>
+    <!-- article, aside, figure, figcaption, footer, header, hgroup, nav, section, summary -->
 
+    <article>
+      <header>
+        <h1>How the World Could End</h1>
+        <p>Scenarios that spell the end of life as we know it</p>
+      </header>
 
-<!-- article, aside, figure, figcaption, footer, header, hgroup, nav, section, summary -->
-
-
-<article>
-  <header>
-    <h1>How the World Could End</h1>
-    <p>Scenarios that spell the end of life as we know it</p>
-  </header>
-
-  <div class="Content">
-
-    <h2>Mayan Doomsday</h2>
-    <p>Skeptics suggest that the Mayan calendar simply rolls to a new
-    5,126-year era after 2012, and doesn't actually predict a life-ending
-    apocalypse. But given that the long-dead Mayans were wrong about
-    virtually everything else, why should we trust them on this?
-    </p>
-
-  </div>
-</article>
-
+      <div class="Content">
+        <h2>Mayan Doomsday</h2>
+        <p>
+          Skeptics suggest that the Mayan calendar simply rolls to a new
+          5,126-year era after 2012, and doesn't actually predict a life-ending
+          apocalypse. But given that the long-dead Mayans were wrong about
+          virtually everything else, why should we trust them on this?
+        </p>
+      </div>
+    </article>
   </div>
 </template>
 <script>
 export default {
 
-};
+}
 </script>
 <style lang="scss">
 @import url(./font/font.css);
@@ -74,6 +69,5 @@ article {
     }
   }
 }
-
 
 </style>

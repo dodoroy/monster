@@ -1,52 +1,58 @@
 <template>
   <div>
     drag event: e.dataTransfer
-    <div class="img-wrapper"
+    <div
+      class="img-wrapper"
+      :style="{'backgroundImage':background}"
       @dragenter="ignoreDrag"
       @dragover="ignoreDrag"
-      @drop="handleDrop" :style="{'backgroundImage':background}">
+      @drop="handleDrop"
+    >
       <div><span>Drop your image here!</span></div>
     </div>
-     <!-- @dragstart="ignoreDrag"
+    <!-- @dragstart="ignoreDrag"
     @dragend="ignoreDrag" -->
-    <input type="file" @change="handleFileChange">
+    <input
+      type="file"
+      @change="handleFileChange"
+    >
   </div>
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
-      background: '',
-    };
+      background: ''
+    }
   },
   methods: {
-    ignoreDrag(e) {
-      console.log(e.type);
-      e.stopPropagation();
-      e.preventDefault();
+    ignoreDrag (e) {
+      console.log(e.type)
+      e.stopPropagation()
+      e.preventDefault()
     },
-    handleDrop(e) {
-      e.stopPropagation();
-      e.preventDefault();
+    handleDrop (e) {
+      e.stopPropagation()
+      e.preventDefault()
 
-      const data = e.dataTransfer;
-      const { files } = data;
-      this.processFile(files);
+      const data = e.dataTransfer
+      const { files } = data
+      this.processFile(files)
     },
-    processFile(files) {
-      const file = files[0];
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
+    processFile (files) {
+      const file = files[0]
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
       reader.onload = (event) => {
-        this.background = `url(${event.target.result})`;
-      };
+        this.background = `url(${event.target.result})`
+      }
     },
-    handleFileChange(e) {
-      const { files } = e.target;
-      this.processFile(files);
-    },
-  },
-};
+    handleFileChange (e) {
+      const { files } = e.target
+      this.processFile(files)
+    }
+  }
+}
 </script>
 <style lang="scss">
   .img-wrapper {

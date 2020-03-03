@@ -1,21 +1,26 @@
 <template>
-  <div class="progress-bar" :style="`{width: ${progress}}%;}`"></div>
+  <div
+    class="progress-bar"
+    :style="`{width: ${progress}}%;}`"
+  />
 </template>
 
 <script>
 export default {
-  name: 'progress-bar',
   props: {
-    progress: String
+    progress: {
+      type: Number,
+      default: 0
+    }
   }
-};
+}
 </script>
 
 <style lang="scss">
 .progress-bar {
   width: 100;
   height: 3px;
-  background: orange;
+  background: #f66;
   position: fixed;
   top: 0;
   left: 0;

@@ -9,42 +9,42 @@
     <div class="group connectionState">
       Connection-State is: <em id="connection-state">{{ connectionState }}</em>
     </div>
-    <my-record :ds="ds"></my-record>
-    <my-events :ds="ds"></my-events>
-    <my-rpc :ds="ds"></my-rpc>
+    <my-record :ds="ds" />
+    <my-events :ds="ds" />
+    <my-rpc :ds="ds" />
   </div>
 </template>
 
 <script>
 // const { DeepstreamClient } = require('@deepstream/client');
-import { DeepstreamClient } from '@deepstream/client';
+import { DeepstreamClient } from '@deepstream/client'
 
-import Record from './record-view';
-import Events from './event-view';
-import RPC from './rpc-view';
+import Record from './record-view'
+import Events from './event-view'
+import RPC from './rpc-view'
 export default {
   components: {
     'my-record': Record,
     'my-events': Events,
     'my-rpc': RPC
   },
-  data() {
+  data () {
     return {
       connectionState: 'INITIAL'
-    };
+    }
   },
-  created() {
+  created () {
     const ds = new DeepstreamClient(
       'wss://154.deepstreamhub.com?apiKey=97a397bd-ccd2-498f-a520-aacc9f67373c'
-    );
+    )
 
-    console.log('ds', ds);
+    console.log('ds', ds)
     // .login()
     // .on('connectionStateChanged', connectionState => {
     //   this.$data.connectionState = connectionState;
     // });
   }
-};
+}
 </script>
 <style lang="scss">
 .group {

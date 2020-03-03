@@ -10,13 +10,21 @@
             @click="sortBy(key)"
           >
             {{ key }}
-            <span :class="['arrow', sortOrders[key] === -1 ? 'dsc' : 'asc']"></span>
+            <span :class="['arrow', sortOrders[key] === -1 ? 'dsc' : 'asc']" />
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in filteredData" :key="item.name">
-          <td v-for="key in columns" :key="key">{{ item[key] }}</td>
+        <tr
+          v-for="item in filteredData"
+          :key="item.name"
+        >
+          <td
+            v-for="key in columns"
+            :key="key"
+          >
+            {{ item[key] }}
+          </td>
         </tr>
       </tbody>
     </table>
@@ -26,49 +34,58 @@
 <script>
 export default {
   props: {
-    filterKey: String,
-    columns: Array,
-    tableData: Array
+    filterKey: {
+      type: String,
+      default: () => ''
+    },
+    columns: {
+      type: Array,
+      default: () => []
+    },
+    tableData: {
+      type: Array,
+      default: () => []
+    }
   },
-  data() {
-    const sortOrders = {};
-    this.columns.forEach(key => {
-      sortOrders[key] = 1;
-    });
+  data () {
+    const sortOrders = {}
+    this.columns.forEach((key) => {
+      sortOrders[key] = 1
+    })
     return {
       sortKey: '',
       sortOrders
-    };
+    }
   },
   computed: {
-    filteredData() {
-      let data = this.tableData.slice(0);
-      const { sortKey } = this;
-      const sortOrder = this.sortOrders[sortKey] || 1;
+    filteredData () {
+      let data = this.tableData.slice(0)
+      const { sortKey } = this
+      const sortOrder = this.sortOrders[sortKey] || 1
       if (this.filterKey) {
-        data = data.filter(item => item.name.indexOf(this.filterKey) != -1);
+        data = data.filter((item) => item.name.indexOf(this.filterKey) !== -1)
       }
       if (sortKey) {
         data.sort((a, b) => {
-          const a1 = a[sortKey];
-          const b1 = b[sortKey];
-          return (a1 === b1 ? 0 : a1 > b1 ? 1 : -1) * sortOrder;
-        });
+          const a1 = a[sortKey]
+          const b1 = b[sortKey]
+          return (a1 === b1 ? 0 : a1 > b1 ? 1 : -1) * sortOrder
+        })
       }
-      return data;
+      return data
     }
   },
   methods: {
-    sortBy(key) {
-      this.sortKey = key;
-      this.$set(this.sortOrders, key, this.sortOrders[key] * -1);
+    sortBy (key) {
+      this.sortKey = key
+      this.$set(this.sortOrders, key, this.sortOrders[key] * -1)
     }
   }
-};
+}
 </script>
 <style lang="scss" scoped>
 table {
-  border: 2px solid #42b983;
+  border: 2px solid #563d7c;
   border-radius: 3px;
   th,
   td {
@@ -78,7 +95,7 @@ table {
     text-align: center;
   }
   th {
-    background: #42b983;
+    background: #563d7c;
     color: rgba(255, 255, 266, 0.8);
     cursor: pointer;
     &.active {

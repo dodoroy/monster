@@ -8,17 +8,19 @@
               default header
             </slot>
           </div>
-          <div class="modal-content">
+          <div class="modal-body">
             <slot name="content">
-              default content
+              default body
             </slot>
           </div>
           <div class="modal-footer">
             <slot name="footer">
               default footer
             </slot>
+            <button @click="$emit('close')">
+              close
+            </button>
           </div>
-          <button @click="$emit('close')">close</button>
         </div>
       </div>
     </div>
@@ -26,7 +28,7 @@
 </template>
 
 <script>
-export default {};
+export default {}
 </script>
 
 <style lang="scss" scoped>
@@ -50,11 +52,22 @@ export default {};
   overflow: visible; /* 为了内部的 container scale 1.1，即放大时可见 */
 }
 .modal-container {
-  padding: 20px;
+  padding: 20px 30px;
   background: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease; /* scale 加在内部的 container 上 */
   .modal-header {
-    color: blue;
+    color: #f66;
+    font-weight: bold;
+  }
+  .modal-body {
+    margin: 20px 0;
+  }
+  .modal-footer {
+    button {
+      float: right;
+    }
   }
 }
 /*

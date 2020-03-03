@@ -2,33 +2,38 @@
   <div>
     <h1>Modal Component</h1>
     <blockquote>
-      Features used: component, event emit, content insertion (slot), transitions.
+      Features used: component, prop passing, content insertion, transitions.
     </blockquote>
 
-    <button @click="showModal = true">show modal</button>
+    <button @click="showModal = true">
+      show modal
+    </button>
 
-    <common-modal v-show="showModal" @close="showModal = false">
+    <common-modal
+      v-show="showModal"
+      @close="showModal = false"
+    >
       <template v-slot:footer>
-        <div>I'm a not default footer</div>
+        I'm a not default footer
       </template>
     </common-modal>
   </div>
 </template>
 
 <script>
-import CommonModal from './common-modal';
+import CommonModal from './common-modal'
 
 export default {
-  data() {
-    return {
-      showModal: false
-    };
-  },
   components: {
     CommonModal
   },
+  data () {
+    return {
+      showModal: false
+    }
+  },
   methods: {}
-};
+}
 </script>
 
 <style lang="scss" scoped></style>

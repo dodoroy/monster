@@ -1,43 +1,56 @@
 <template>
   <div>
-
-    <img class="transform" src="./cat.jpg" alt="">
-
-
+    <img
+      class="transform"
+      src="./cat.jpg"
+      alt=""
+    >
+    <br>
+    <br>
     <div class="fade">
       <div>
-        <button @click="toNight()">Go to Night</button>
-        <button @click="toDay()">Go to Day</button>
+        <button @click="toDay()">
+          Go to Day
+        </button>
+        <button @click="toNight()">
+          Go to Night
+        </button>
       </div>
-      <img src="./day.png" alt="Daytime view">
-      <img :class="isNight?'solid':'transparent'" src="./night.png" alt="Night-time "><br/>
-
+      <br>
+      <img
+        src="./day.png"
+        alt="Daytime view"
+      >
+      <img
+        :class="isNight ? 'solid' : 'transparent'"
+        src="./night.png"
+        alt="Night-time "
+      ><br>
     </div>
-
   </div>
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
-      isNight: true,
-    };
+      isNight: true
+    }
   },
   methods: {
-    toNight() {
-      this.isNight = true;
+    toNight () {
+      this.isNight = true
     },
-    toDay() {
-      this.isNight = false;
-    },
-  },
-};
+    toDay () {
+      this.isNight = false
+    }
+  }
+}
 </script>
 <style lang="scss" scoped>
 img.transform {
   padding: 10px;
   border: 1px solid #000;
-  transition: all .8s;
+  transition: all 0.8s;
   &:hover {
     transform: rotate(10deg) scale(1.1);
   }
@@ -45,7 +58,7 @@ img.transform {
 
 .fade {
   img {
-    width: 800px;
+    max-width: 70%;
     position: absolute;
     transition: opacity 6s;
   }

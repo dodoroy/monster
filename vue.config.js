@@ -1,13 +1,14 @@
 module.exports = {
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/monsters/'
+    : '/',
   configureWebpack: {
     resolve: {
-      extensions: ['.vue', '.js', '.json']
+      extensions: ['.js', '.ts', '.vue', '.json', '.scss', '.css']
     }
   }
 }
 
-
-
-  // "gitHooks": {
-  //     "pre-commit": "lint-staged"
-  // },
+// "gitHooks": { in package.json
+//     "pre-commit": "lint-staged"
+// },

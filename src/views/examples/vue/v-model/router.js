@@ -1,4 +1,4 @@
 export default {
   name: 'v-model on component',
-  sort: -2
+  sort: 999
 }

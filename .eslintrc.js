@@ -3,7 +3,8 @@ module.exports = {
     browser: true,
     es6: true
   },
-  extends: 'standard',
+  // extends: 'standard',
+  extends: ['standard', 'plugin:vue/recommended'],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly'
@@ -15,7 +16,5 @@ module.exports = {
   plugins: [
     'vue'
   ],
-  rules: {
-
-  }
+  rules: {}
 }

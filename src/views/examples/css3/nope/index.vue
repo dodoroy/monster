@@ -1,18 +1,16 @@
 <template>
-<div class="wrapper">
-<div id="nope">
-  <p>Do websites need to be experienced exactly the same in every browser?</p>
-	<h1><span>Nope.</span></h1>
-</div>
-</div>
-
+  <div class="wrapper">
+    <div id="nope">
+      <p>Do websites need to be experienced exactly the same in every browser?</p>
+      <h1><span>Nope.</span></h1>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
 
-
-};
+}
 </script>
 
 <style lang="scss" scoped>

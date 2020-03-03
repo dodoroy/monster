@@ -1,9 +1,10 @@
-import axios, { AxiosInstance } from 'axios';
-import Cookies from 'js-cookie';
 import router from '@/router';
-import qs from 'qs';
+import axios, { AxiosInstance } from 'axios';
 import isPlainObject from 'lodash/isPlainObject';
-import { clearLoginInfo } from '@/utils';
+const Cookies =require( 'js-cookie');
+const qs =require( 'qs');
+
+// import { clearLoginInfo } from '@/utils';
 
 export declare interface IHttp extends AxiosInstance {
     pendingRequests?: { [propName: string]: Function }; // 当前异步请求队列
@@ -80,7 +81,7 @@ http.interceptors.response.use(
         }
         if (response.data && response.data.code === 401) {
             // 401, token失效
-            clearLoginInfo();
+            // clearLoginInfo();
             router.replace({ name: 'login' });
             return Promise.reject(response.data.msg);
         }
@@ -88,7 +89,7 @@ http.interceptors.response.use(
     },
     (error) => {
         if (error && error.response && error.response.status === 401) {
-            clearLoginInfo();
+            // clearLoginInfo();
             router.replace({ name: 'login' });
         }
         return Promise.reject(error);

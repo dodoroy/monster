@@ -1,43 +1,50 @@
 <template>
   <g>
-    <circle cx="100" cy="100" r="80" />
+    <circle
+      cx="100"
+      cy="100"
+      r="80"
+    />
     <polygon :points="points" />
     <axis-label
       v-for="(stat, index) in stats"
+      :key="index"
       :stat="stat"
       :index="index"
       :total="stats.length"
-      :key="index"
-    ></axis-label>
+    />
   </g>
 </template>
 
 <script>
-import AxisLabel from './axis-label';
-import valueToPoint from './helper';
+import AxisLabel from './axis-label'
+import valueToPoint from './helper'
 
 export default {
-  props: {
-    stats: Array
-  },
   components: { AxisLabel },
+  props: {
+    stats: {
+      type: Array,
+      default: () => []
+    }
+  },
   computed: {
-    points() {
-      const total = this.stats.length;
+    points () {
+      const total = this.stats.length
       return this.stats
         .map((stat, i) => {
-          const point = valueToPoint(stat.value, i, total);
-          return `${point.x},${point.y}`;
+          const point = valueToPoint(stat.value, i, total)
+          return `${point.x},${point.y}`
         })
-        .join(' ');
+        .join(' ')
     }
   }
-};
+}
 </script>
 
 <style>
 polygon {
-  fill: #42b983;
+  fill: #563d7c;
   opacity: 0.75;
 }
 

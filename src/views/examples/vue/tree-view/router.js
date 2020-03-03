@@ -1,4 +1,4 @@
 export default {
   name: 'Tree View',
-  sort: 3
+  sort: 4
 }

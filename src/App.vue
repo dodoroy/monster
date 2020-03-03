@@ -1,13 +1,10 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <router-view />
   </div>
 </template>
-
 <script>
-export default {
-  name: 'app'
-};
+export default {}
 </script>
 <style lang="scss">
 html {
@@ -17,6 +14,7 @@ body {
   height: 100%;
   padding: 0;
   margin: 0;
+  font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
 }
 #app {
   height: 100%;

@@ -1,4 +1,4 @@
 export default {
   name: 'Firebase + Validation',
-  sort: 11
+  sort: 10
 }

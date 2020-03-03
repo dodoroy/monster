@@ -1,4 +1,4 @@
 export default {
   name: 'Hackernews Clone',
-  sort: 13
+  sort: 12
 }
